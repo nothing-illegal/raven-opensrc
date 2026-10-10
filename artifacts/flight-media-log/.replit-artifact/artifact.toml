@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Flight Media Log"
+description = "A privacy-conscious drone flight record for authorized operations. Save photos and video, preserve flight notes and capture coordinates locally, and review locations on a map with public business context. DJI connection is limited to supported import workflows; no private resident or property-owner identification."
+version = "1.0.0"
+id = "artifacts/flight-media-log"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 25042
+
+[services.development]
+run = "pnpm --filter @workspace/flight-media-log run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/flight-media-log", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/flight-media-log/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "25042"
+BASE_PATH = "/"

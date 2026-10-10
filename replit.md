@@ -1,6 +1,6 @@
-# [Project name]
+# Fieldnote / Air
 
-_Replace the heading above with the project's name, and this line with one sentence describing what this app does for users._
+A local-first flight media log for authorized drone inspection work. Save flight records and media in the current browser, review GPS capture points, and optionally see nearby public business listings.
 
 ## Run & Operate
 
@@ -22,24 +22,32 @@ _Replace the heading above with the project's name, and this line with one sente
 
 ## Where things live
 
-_Populate as you build — short repo map plus pointers to the source-of-truth file for DB schema, API contracts, theme files, etc._
+- `artifacts/flight-media-log/src/App.tsx` — app routes and user-facing workflows
+- `artifacts/flight-media-log/src/lib/local-db.ts` — IndexedDB record and media persistence
+- `artifacts/flight-media-log/src/index.css` — app theme and layout
+- `artifacts/api-server/` — shared API scaffold; the flight media app does not currently use it
 
 ## Architecture decisions
 
-_Populate as you build — non-obvious choices a reader couldn't infer from the code (3-5 bullets)._
+- Flight records and original media stay in the user's browser; backups are explicit exports, not automatic cloud sync.
+- Maps use OpenStreetMap tiles and optional public business listings; the app does not identify residents or property owners.
+- DJI media is imported from files selected by the user; direct drone connection and universal model support are not claimed.
 
 ## Product
 
-_Describe the high-level user-facing capabilities of this app once they exist._
+The app manages flight notes, photos and videos, editable capture metadata, GPS map markers, and portable backups. Nearby-business lookup is optional and only searches public business categories around a selected capture. It is designed for authorized inspection workflows, not profiling people.
 
 ## User preferences
 
-_Populate as you build — explicit user instructions worth remembering across sessions._
+No additional visual or workflow preferences recorded.
 
 ## Gotchas
 
-_Populate as you build — sharp edges, "always run X before Y" rules._
+- Browser storage can be cleared and does not move between browsers or devices; export a backup before changing devices.
+- Backups include original media and embedded location metadata and may be large.
+- Map tiles load online. Nearby-business lookup sends the selected capture coordinates to OpenStreetMap's public Overpass service only when requested.
 
 ## Pointers
 
 - See the `pnpm-workspace` skill for workspace structure, TypeScript setup, and package details
+- Run the app with `pnpm --filter @workspace/flight-media-log run dev`
