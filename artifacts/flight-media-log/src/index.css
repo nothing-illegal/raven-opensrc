@@ -240,6 +240,12 @@ button { cursor: pointer; }
 .coords-card span,.coords-card strong { display:block; }
 .coords-card span { color:#8d978e; font:8px var(--app-font-mono); letter-spacing:.08em; }
 .coords-card strong { color:#51655e; font-size:10px; margin-top:5px; }
+.external-map-tools { grid-column:span 2; margin-top:9px; }
+.external-map-label { display:block; color:#7d8982; font:8px var(--app-font-mono); letter-spacing:.07em; }
+.external-map-links { display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-top:7px; }
+.map-provider-link { min-height:32px; padding:0 8px; display:flex; align-items:center; justify-content:center; gap:5px; border:1px solid #d6d3c7; border-radius:5px; background:#faf9f3; color:#435653; font-size:9px; font-weight:700; text-decoration:none; white-space:nowrap; }
+.map-provider-link:hover { border-color:#94aaa0; background:#fff; color:#28655d; }
+.external-map-tools p { color:#87938a; font-size:8px; line-height:1.5; margin:6px 0 0; }
 .map-empty { text-align:center; padding:26px 14px; color:#819087; }
 .map-empty svg { color:#739288; }
 .map-empty p { font-size:10px; line-height:1.6; }

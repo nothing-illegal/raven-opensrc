@@ -30,7 +30,7 @@ A local-first flight media log for authorized drone inspection work. Save flight
 ## Architecture decisions
 
 - Flight records and original media stay in the user's browser; backups are explicit exports, not automatic cloud sync.
-- Maps use OpenStreetMap tiles and optional public business listings; the app does not identify residents or property owners.
+- Maps use OpenStreetMap tiles and optional public business listings, with user-triggered Google Maps and Apple Maps links for street/business context. The app does not identify residents or property owners.
 - DJI media is imported from files selected by the user; direct drone connection and universal model support are not claimed.
 
 ## Product
@@ -46,6 +46,7 @@ No additional visual or workflow preferences recorded.
 - Browser storage can be cleared and does not move between browsers or devices; export a backup before changing devices.
 - Backups include original media and embedded location metadata and may be large.
 - Map tiles load online. Nearby-business lookup sends the selected capture coordinates to OpenStreetMap's public Overpass service only when requested.
+- Opening a Google or Apple Maps link sends the selected capture coordinates to that provider; no property-owner or resident lookup is performed.
 
 ## Pointers
 
