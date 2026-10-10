@@ -62,6 +62,7 @@ button { cursor: pointer; }
 .topbar-storage .status-dot { background:#5b9a72; }
 .topbar-icon { color:#788682; display:grid; place-items:center; border-left:1px solid #dedbd0; padding-left:17px; }
 .topbar-icon:hover { color:#28675e; }
+.theme-toggle { background:transparent; border-top:0; border-right:0; border-bottom:0; cursor:pointer; }
 .page-wrap { width:min(1170px,100%); margin:0 auto; padding:39px 42px 48px; }
 .page-heading { display:flex; justify-content:space-between; gap:28px; align-items:flex-end; margin-bottom:28px; }
 .page-heading h1 { font-size:33px; line-height:1.15; letter-spacing:-.045em; margin:10px 0 8px; font-weight:750; color:#24383b; }
@@ -270,6 +271,7 @@ button { cursor: pointer; }
 .map-capture-chip { max-width:190px; display:flex; align-items:center; gap:8px; border:1px solid #e0ddd2; background:#fbfaf5; padding:7px 9px; border-radius:5px; color:#63736c; font-size:9px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; }
 .map-capture-chip span { color:#a0a79e; }
 .map-capture-chip.chip-active { border-color:#75a095; background:#eaf1e9; color:#2d655d; }
+.map-page { container-type:inline-size; }
 .settings-summary { display:flex; align-items:center; gap:14px; background:#eaf0e8; border:1px solid #dbe5d8; padding:17px 18px; border-radius:8px; margin-bottom:17px; }
 .settings-shield { height:38px; width:38px; flex:0 0 38px; background:#fbfaf5; color:#39776b; border-radius:7px; display:grid; place-items:center; }
 .settings-summary > div { flex:1; }
@@ -408,3 +410,262 @@ button { cursor: pointer; }
   .span-two,.modal-actions { grid-column:span 1; }
   .breadcrumb strong { font-size:10px; }
 }
+@container (max-width:650px) {
+  .map-controls { align-items:flex-start; flex-direction:column; gap:12px; padding:12px; }
+  .map-controls .button { width:100%; }
+  .map-layout { grid-template-columns:minmax(0,1fr); min-height:0; }
+  .map-canvas { min-height:clamp(280px,48vh,360px); }
+  .map-aside { border-top:1px solid #e3dfd3; padding:18px 16px 20px; }
+  .map-aside-header h2 { font-size:16px; }
+  .map-empty { padding:22px 8px; }
+  .map-empty p { font-size:12px; }
+  .nearby-title { font-size:9px; }
+  .nearby-copy,.nearby-state,.nearby-error { font-size:11px; line-height:1.65; }
+  .place-row strong { font-size:10px; }
+  .place-row small,.place-distance { font-size:9px; }
+  .map-source-note { margin-top:14px; font-size:10px; line-height:1.6; }
+  .selected-capture > strong { font-size:11px; }
+  .selected-capture > span { font-size:10px; }
+  .coords-card span,.external-map-label { font-size:9px; }
+  .coords-card strong { font-size:11px; }
+  .external-map-tools p { font-size:9px; }
+  .map-provider-link { min-height:36px; font-size:10px; }
+}
+
+:root[data-theme="dark"] {
+  color-scheme:dark;
+  --background:198 27% 9%;
+  --foreground:42 24% 92%;
+  --card:198 24% 13%;
+  --card-foreground:42 24% 92%;
+  --border:198 16% 25%;
+  --input:198 16% 25%;
+  --primary:164 37% 54%;
+  --primary-foreground:198 28% 10%;
+  --secondary:198 19% 20%;
+  --muted:198 19% 20%;
+  --muted-foreground:198 10% 68%;
+  --ring:164 43% 57%;
+  --theme-bg:#101a1c;
+  --theme-surface:#172426;
+  --theme-surface-raised:#1d2d2f;
+  --theme-surface-soft:#223638;
+  --theme-border:#324649;
+  --theme-text:#e7ece4;
+  --theme-secondary:#b8c5bd;
+  --theme-muted:#91a39b;
+  --theme-accent:#8ab9a6;
+  --theme-accent-soft:#233b38;
+  --theme-amber:#dfb46f;
+}
+:root[data-theme="dark"] body,
+:root[data-theme="dark"] .app-shell,
+:root[data-theme="dark"] .main-area {
+  background:var(--theme-bg);
+  color:var(--theme-text);
+}
+:root[data-theme="dark"] .sidebar {
+  background:#0d191b;
+  border-right:1px solid #263b3d;
+}
+:root[data-theme="dark"] .brand-icon { background:#1a3032; border-color:#395152; }
+:root[data-theme="dark"] .brand-name,
+:root[data-theme="dark"] .welcome-strip h2 { color:#f0eee5; }
+:root[data-theme="dark"] .brand-name span,
+:root[data-theme="dark"] .privacy-icon,
+:root[data-theme="dark"] .limit-bullet { color:var(--theme-amber); }
+:root[data-theme="dark"] .brand-caption,
+:root[data-theme="dark"] .workspace-label,
+:root[data-theme="dark"] .sidebar-footer,
+:root[data-theme="dark"] .sidebar-footer .version { color:#9aada5; }
+:root[data-theme="dark"] .eyebrow { color:#92a89f; }
+:root[data-theme="dark"] .nav-item { color:#b8c8c0; }
+:root[data-theme="dark"] .nav-item:hover { background:#1d3032; color:#f4f2e9; }
+:root[data-theme="dark"] .nav-item.nav-active { background:#294542; color:#fff; box-shadow:inset 2px 0 var(--theme-amber); }
+:root[data-theme="dark"] .nav-item.nav-active svg { color:var(--theme-amber); }
+:root[data-theme="dark"] .nav-count { background:#304d49; color:#d8e5dc; }
+:root[data-theme="dark"] .privacy-card { background:#17292b; border-color:#304548; }
+:root[data-theme="dark"] .privacy-card p,
+:root[data-theme="dark"] .local-indicator { color:#b6c5bd; }
+:root[data-theme="dark"] .sidebar-footer { border-color:#2b4042; }
+:root[data-theme="dark"] .topbar { background:#142224; border-color:#2a3f41; }
+:root[data-theme="dark"] .breadcrumb,
+:root[data-theme="dark"] .topbar-storage { color:#a4b4ac; }
+:root[data-theme="dark"] .breadcrumb strong { color:#e2e9e1; }
+:root[data-theme="dark"] .breadcrumb .crumb-slash { color:#60736e; }
+:root[data-theme="dark"] .topbar-icon { color:#a5b5ad; border-color:#334749; }
+:root[data-theme="dark"] .topbar-icon:hover { color:#a6d2bd; }
+:root[data-theme="dark"] .theme-toggle { background:transparent; border-top:0; border-right:0; border-bottom:0; }
+:root[data-theme="dark"] .page-heading h1,
+:root[data-theme="dark"] .modal-heading h2,
+:root[data-theme="dark"] .stat-value,
+:root[data-theme="dark"] .media-row-main strong,
+:root[data-theme="dark"] .flight-mini-main strong,
+:root[data-theme="dark"] .flight-title-cell strong,
+:root[data-theme="dark"] .media-card-info strong,
+:root[data-theme="dark"] .selected-capture > strong,
+:root[data-theme="dark"] .settings-panel strong,
+:root[data-theme="dark"] .dji-copy h2 { color:var(--theme-text); }
+:root[data-theme="dark"] .page-heading p,
+:root[data-theme="dark"] .stat-detail,
+:root[data-theme="dark"] .empty-state p,
+:root[data-theme="dark"] .nearby-copy,
+:root[data-theme="dark"] .settings-summary p,
+:root[data-theme="dark"] .settings-panel > p,
+:root[data-theme="dark"] .limit-row p,
+:root[data-theme="dark"] .dji-copy p,
+:root[data-theme="dark"] .settings-footer,
+:root[data-theme="dark"] .metadata-footnote { color:#a1b1a9; }
+:root[data-theme="dark"] .button-primary { background:#477c69; color:#f5f3e9; box-shadow:0 2px 7px #07131266; }
+:root[data-theme="dark"] .button-primary:hover { background:#568b77; }
+:root[data-theme="dark"] .button-outline,
+:root[data-theme="dark"] .button-quiet { border-color:#3a5052; background:#1b2b2d; color:#d0dbd3; }
+:root[data-theme="dark"] .button-outline:hover,
+:root[data-theme="dark"] .button-quiet:hover { border-color:#64877d; background:#263a3c; }
+:root[data-theme="dark"] .welcome-strip { background:#1a3032; color:#e7ece4; }
+:root[data-theme="dark"] .welcome-mark { background:#233b3d; border-color:#496260; color:var(--theme-amber); }
+:root[data-theme="dark"] .welcome-mark span { background:#38534e; color:#e4ece2; }
+:root[data-theme="dark"] .welcome-kicker,
+:root[data-theme="dark"] .welcome-link { color:#e1bd7a; }
+:root[data-theme="dark"] .welcome-strip p { color:#c0cec5; }
+:root[data-theme="dark"] .welcome-link:hover { color:#fff; }
+:root[data-theme="dark"] .stat-card,
+:root[data-theme="dark"] .panel,
+:root[data-theme="dark"] .media-card,
+:root[data-theme="dark"] .map-controls,
+:root[data-theme="dark"] .map-layout,
+:root[data-theme="dark"] .modal-card,
+:root[data-theme="dark"] .search-box,
+:root[data-theme="dark"] .filter-select {
+  background:var(--theme-surface);
+  border-color:var(--theme-border);
+  color:var(--theme-text);
+}
+:root[data-theme="dark"] .panel-heading,
+:root[data-theme="dark"] .media-row,
+:root[data-theme="dark"] .flight-mini,
+:root[data-theme="dark"] .flight-row,
+:root[data-theme="dark"] .modal-actions,
+:root[data-theme="dark"] .metadata-actions,
+:root[data-theme="dark"] .map-divider,
+:root[data-theme="dark"] .map-source-note,
+:root[data-theme="dark"] .dji-aside,
+:root[data-theme="dark"] .backup-divider,
+:root[data-theme="dark"] .backup-facts,
+:root[data-theme="dark"] .limit-row { border-color:#2d4244; }
+:root[data-theme="dark"] .panel-heading { background:#19292b; }
+:root[data-theme="dark"] .text-link,
+:root[data-theme="dark"] .quiet-note,
+:root[data-theme="dark"] .quiet-note a { color:#92c5ae; }
+:root[data-theme="dark"] .text-link:hover,
+:root[data-theme="dark"] .flight-mini:hover strong { color:#b2ddc8; }
+:root[data-theme="dark"] .media-row-main small,
+:root[data-theme="dark"] .media-size,
+:root[data-theme="dark"] .flight-mini-main small,
+:root[data-theme="dark"] .flight-mini-date,
+:root[data-theme="dark"] .flight-title-cell small,
+:root[data-theme="dark"] .table-date,
+:root[data-theme="dark"] .table-duration,
+:root[data-theme="dark"] .table-captures,
+:root[data-theme="dark"] .file-detail,
+:root[data-theme="dark"] .media-card-info > span,
+:root[data-theme="dark"] .settings-fineprint,
+:root[data-theme="dark"] .dji-aside small { color:#9aaba3; }
+:root[data-theme="dark"] .media-type,
+:root[data-theme="dark"] .flight-mini-symbol,
+:root[data-theme="dark"] .flight-row-icon,
+:root[data-theme="dark"] .empty-icon,
+:root[data-theme="dark"] .settings-icon,
+:root[data-theme="dark"] .settings-shield { background:#243a3a; color:#9cc5b0; }
+:root[data-theme="dark"] .media-type.video,
+:root[data-theme="dark"] .dji-mark { background:#3a3326; color:#dfba7d; }
+:root[data-theme="dark"] .row-index,
+:root[data-theme="dark"] .flight-row-number,
+:root[data-theme="dark"] .map-capture-chip span { color:#82948c; }
+:root[data-theme="dark"] .search-box { color:#9db0a7; }
+:root[data-theme="dark"] .search-box input,
+:root[data-theme="dark"] .filter-select select { color:#e0e8df; }
+:root[data-theme="dark"] .search-box input::placeholder,
+:root[data-theme="dark"] .field input::placeholder,
+:root[data-theme="dark"] .field textarea::placeholder { color:#81948c; }
+:root[data-theme="dark"] .table-head { background:#1d3032; color:#a8b6ad; }
+:root[data-theme="dark"] .flight-row:hover { background:#203335; }
+:root[data-theme="dark"] .icon-button { color:#9aada5; }
+:root[data-theme="dark"] .icon-button:hover { color:#b4dcc7; background:#263b3b; }
+:root[data-theme="dark"] .danger-icon:hover { color:#ffada2; background:#3b2928; }
+:root[data-theme="dark"] .inline-error { color:#ffc0b4; background:#3a2625; border-color:#68403a; }
+:root[data-theme="dark"] .modal-scrim { background:rgba(3,10,11,.76); }
+:root[data-theme="dark"] .field { color:#b8c6be; }
+:root[data-theme="dark"] .field input,
+:root[data-theme="dark"] .field textarea,
+:root[data-theme="dark"] .field select,
+:root[data-theme="dark"] .field-inline select { background:#111e20; border-color:#3a5052; color:#e3eae2; }
+:root[data-theme="dark"] .field input:focus,
+:root[data-theme="dark"] .field textarea:focus,
+:root[data-theme="dark"] .field select:focus,
+:root[data-theme="dark"] .field-inline select:focus { border-color:#79a995; box-shadow:0 0 0 3px #5d9d831f; }
+:root[data-theme="dark"] .danger-text { color:#ffaaa0; }
+:root[data-theme="dark"] .import-hint { background:#1c302f; border-color:#344b46; }
+:root[data-theme="dark"] .hint-mark { background:#243b39; border-color:#3a5550; color:#9cc6af; }
+:root[data-theme="dark"] .import-hint small,
+:root[data-theme="dark"] .field-inline { color:#a9b8b0; }
+:root[data-theme="dark"] .filter-select select option { background:#172426; color:#e7ece4; }
+:root[data-theme="dark"] .media-card:hover { border-color:#58736a; box-shadow:0 7px 18px #02080866; }
+:root[data-theme="dark"] .media-preview,
+:root[data-theme="dark"] .large-preview { background:#223537; color:#9db3a8; }
+:root[data-theme="dark"] .preview-fallback { color:#a0b9aa; }
+:root[data-theme="dark"] .video-tag { background:#142526e8; color:#f0eee5; }
+:root[data-theme="dark"] .card-sequence { background:#132326c9; }
+:root[data-theme="dark"] .media-card-info small { color:#95a69e; }
+:root[data-theme="dark"] .map-pin-icon,
+:root[data-theme="dark"] .selected-marker { background:#263d39; color:#9bc6b0; }
+:root[data-theme="dark"] .map-canvas { background:#172729; }
+:root[data-theme="dark"] .map-grid img { filter:invert(.88) hue-rotate(180deg) saturate(.58) brightness(.75); }
+:root[data-theme="dark"] .map-attribution,
+:root[data-theme="dark"] .map-coordinates { background:rgba(16,29,31,.92); color:#d3ded5; }
+:root[data-theme="dark"] .map-attribution a { color:#a2d1b9; }
+:root[data-theme="dark"] .map-no-data {
+  background-color:#1a2a2b;
+  background-image:linear-gradient(rgba(228,239,225,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(228,239,225,.055) 1px,transparent 1px);
+  color:#a7b8af;
+}
+:root[data-theme="dark"] .map-no-data strong { color:#e0e9df; }
+:root[data-theme="dark"] .map-no-data span,
+:root[data-theme="dark"] .map-empty { color:#a3b4aa; }
+:root[data-theme="dark"] .coords-card { background:#203335; }
+:root[data-theme="dark"] .coords-card span,
+:root[data-theme="dark"] .external-map-label,
+:root[data-theme="dark"] .nearby-title { color:#a6b8ae; }
+:root[data-theme="dark"] .coords-card strong { color:#dce6dd; }
+:root[data-theme="dark"] .map-provider-link { background:#1e3032; border-color:#3b5152; color:#d6e1d8; }
+:root[data-theme="dark"] .map-provider-link:hover { background:#29403e; border-color:#638b7d; color:#f0f4e9; }
+:root[data-theme="dark"] .external-map-tools p,
+:root[data-theme="dark"] .map-source-note { color:#a1b2a9; }
+:root[data-theme="dark"] .map-empty svg,
+:root[data-theme="dark"] .map-source-note svg { color:#92c3ad; }
+:root[data-theme="dark"] .nearby-error { background:#392625; color:#ffc1b7; }
+:root[data-theme="dark"] .mini-loader { border-color:#405555; border-top-color:#8ab9a6; }
+:root[data-theme="dark"] .place-row { border-color:#2c4143; }
+:root[data-theme="dark"] .place-symbol { background:#263c3a; color:#a6cdb8; }
+:root[data-theme="dark"] .place-row small,
+:root[data-theme="dark"] .place-distance { color:#a1b1a8; }
+:root[data-theme="dark"] .map-capture-chip { background:#1a2b2d; border-color:#34494b; color:#c1d0c7; }
+:root[data-theme="dark"] .map-capture-chip.chip-active { background:#263f3a; border-color:#628c7b; color:#d7eade; }
+:root[data-theme="dark"] .settings-summary { background:#1a302d; border-color:#314943; }
+:root[data-theme="dark"] .local-tag { color:#acd2b8; background:#1b302b; border-color:#385446; }
+:root[data-theme="dark"] .backup-facts span,
+:root[data-theme="dark"] .dji-aside span { color:#a0b0a7; }
+:root[data-theme="dark"] .settings-summary strong,
+:root[data-theme="dark"] .limit-row strong,
+:root[data-theme="dark"] .dji-aside strong { color:#e2e9e1; }
+:root[data-theme="dark"] .limits-panel { background:#142224; }
+:root[data-theme="dark"] .success-message { background:#1e392d; color:#b9e1c5; }
+:root[data-theme="dark"] .dji-panel { background:#172628; }
+:root[data-theme="dark"] .storage-alert { background:#382824; border-color:#63433a; color:#f0c1a7; }
+:root[data-theme="dark"] .storage-alert button { color:#f1d1b7; }
+:root[data-theme="dark"] .skeleton-head,
+:root[data-theme="dark"] .skeleton-row,
+:root[data-theme="dark"] .skeleton-panel {
+  background:linear-gradient(90deg,#1b2a2c,#263638,#1b2a2c);
+}
+:root[data-theme="dark"] .nav-overlay { background:rgba(0,0,0,.66); }

@@ -1,6 +1,6 @@
 import { useEffect, useState, type FormEvent, type ReactNode } from 'react';
 import { Link, Route, Switch, useLocation, Router as WouterRouter } from 'wouter';
-import { Activity, Archive, ArrowDownToLine, ArrowUpFromLine, Camera, Check, ChevronDown, CircleHelp, Compass, ExternalLink, FileImage, FileVideo, Filter, FolderOpen, HardDrive, MapPin, Menu, MoreHorizontal, Plane, Plus, Search, Settings, ShieldCheck, Trash2, Upload, X } from 'lucide-react';
+import { Activity, Archive, ArrowDownToLine, ArrowUpFromLine, Camera, Check, ChevronDown, CircleHelp, Compass, ExternalLink, FileImage, FileVideo, Filter, FolderOpen, HardDrive, MapPin, Menu, Moon, MoreHorizontal, Plane, Plus, Search, Settings, ShieldCheck, Sun, Trash2, Upload, X } from 'lucide-react';
 import { Flight, MediaRecord, listFlights, listMedia, newId, removeFlight, removeMedia, replaceAll, saveFlight, saveMedia } from '@/lib/local-db';
 import './index.css';
 
@@ -101,6 +101,10 @@ function AppShell() {
   const [storageError, setStorageError] = useState('');
   const [location] = useLocation();
   const [mobileNav, setMobileNav] = useState(false);
+  const [theme, setTheme] = useState<'dark' | 'light'>(() => {
+    try { return localStorage.getItem('fieldnote-theme') === 'light' ? 'light' : 'dark'; }
+    catch { return 'dark'; }
+  });
   const refresh = async () => {
     try {
       const [f, m] = await Promise.all([listFlights(), listMedia()]);
@@ -111,6 +115,10 @@ function AppShell() {
     finally { setReady(true); }
   };
   useEffect(() => { void refresh(); }, []);
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    try { localStorage.setItem('fieldnote-theme', theme); } catch { /* Theme still applies for this session. */ }
+  }, [theme]);
   const onUpload = async (files: FileList | File[], flightId?: string) => {
     for (const file of Array.from(files)) {
       if (!file.type.startsWith('image/') && !file.type.startsWith('video/')) continue;
@@ -146,7 +154,7 @@ function AppShell() {
         <header className="topbar">
           <button className="icon-button mobile-menu" aria-label="Open navigation" onClick={() => setMobileNav(true)} data-testid="button-open-navigation"><Menu size={19}/></button>
           <div className="breadcrumb"><span>FIELDNOTE / AIR</span><span className="crumb-slash">/</span><strong>{title}</strong></div>
-          <div className="topbar-right"><span className="topbar-storage"><span className="status-dot"/>On this device</span><Link href="/settings" className="topbar-icon" aria-label="Settings" data-testid="link-settings-top"><Settings size={17}/></Link></div>
+          <div className="topbar-right"><span className="topbar-storage"><span className="status-dot"/>On this device</span><button type="button" className="topbar-icon theme-toggle" onClick={() => setTheme(current => current === 'dark' ? 'light' : 'dark')} aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'} title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'} data-testid="button-toggle-theme">{theme === 'dark' ? <Sun size={17}/> : <Moon size={17}/>}</button><Link href="/settings" className="topbar-icon" aria-label="Settings" data-testid="link-settings-top"><Settings size={17}/></Link></div>
         </header>
         {storageError && <div className="storage-alert" role="alert"><CircleHelp size={18}/><span>{storageError} You can retry by reloading the page.</span><button onClick={() => void refresh()} data-testid="button-retry-storage">Retry</button></div>}
         {!ready ? <div className="page-wrap"><div className="skeleton-head"/><div className="skeleton-row"/><div className="skeleton-panel"/></div> :
